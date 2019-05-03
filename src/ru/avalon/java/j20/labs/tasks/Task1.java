@@ -2,8 +2,7 @@ package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Задание №1
@@ -54,7 +53,20 @@ public class Task1 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        if(file != null) {
+        	try(InputStream iS = new FileInputStream(file); // try{} with resources.
+        			ByteArrayOutputStream bAOS = new ByteArrayOutputStream()){
+        		
+        		int temp = 0;
+        		while((temp = iS.read()) != - 1) {
+        			bAOS.write(iS.read());
+        		}
+        		return bAOS.toString();
+        	}
+        	
+        }	else {
+        	throw new FileNotFoundException("Nothing to read");
+        }
     }
 
     /**
@@ -66,6 +78,18 @@ public class Task1 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private void write(File file, String text) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+    	
+//        throw new UnsupportedOperationException("Not implemented yet!");
+    	if(file == null) throw new NullPointerException("Can't write to file, it doesn't exist");
+    	if(text == null) throw new NullPointerException("It's nothing to write");
+    	
+    	OutputStream oS = new FileOutputStream(file);
+    	
+    	try {	// try{} without resources, but with .close().
+    		byte[] byteForWriting = text.getBytes();
+    		oS.write(byteForWriting);
+    	} finally {
+			oS.close();
+		}
     }
 }

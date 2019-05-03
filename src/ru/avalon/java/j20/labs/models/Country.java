@@ -61,6 +61,13 @@ public class Country {
         /*
          * TODO(Студент): Реализовать метод valueOf класса Country
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+    	
+    	if (text==null) throw new NullPointerException();
+        int indexOfElemnts = text.indexOf(":");
+        if (indexOfElemnts == -1) throw new IllegalArgumentException("Incorrect text");
+        String key = text.substring(0, indexOfElemnts);
+        String valString = text.substring(indexOfElemnts+1);
+        return new Country(key, valString);
+
     }
 }
