@@ -57,7 +57,7 @@ public class Task1 implements Task {
         	try(InputStream iS = new FileInputStream(file); // try{} with resources.
         			ByteArrayOutputStream bAOS = new ByteArrayOutputStream()){
         		
-        		byte[] byteArr = new byte[32];
+        		byte[] byteArr = new byte[1];//лучше поставить "1" тогда не пропускает текст
         		int temp = 0;
         		while((temp = iS.read(byteArr)) != - 1) {
         			bAOS.write(iS.read());

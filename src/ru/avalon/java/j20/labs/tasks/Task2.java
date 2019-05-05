@@ -58,7 +58,7 @@ public class Task2 implements Task {
         			Reader fileReader = new InputStreamReader(iS)){
         		
         		int temp = 0;
-        		char[] bufferArray = new char[10];
+        		char[] bufferArray = new char[100];
         		StringBuilder strBuild = new StringBuilder();
         		
         		while((temp = fileReader.read(bufferArray)) != -1) {
