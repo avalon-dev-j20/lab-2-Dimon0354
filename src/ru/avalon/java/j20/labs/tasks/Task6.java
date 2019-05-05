@@ -3,8 +3,12 @@ package ru.avalon.java.j20.labs.tasks;
 import ru.avalon.java.j20.labs.Task;
 import ru.avalon.java.j20.labs.models.Country;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -17,9 +21,10 @@ public class Task6 implements Task {
 
     /**
      * {@inheritDoc}
+     * @throws ParseException 
      */
     @Override
-    public void run() throws IOException {
+    public void run() throws IOException, ParseException {
         File input = new File("assets/countries.txt");
         Collection<Country> countries = read(input);
 
@@ -46,8 +51,25 @@ public class Task6 implements Task {
      * @param file файл
      * @return коллекция объектов типа {@link Country}
      * @throws IOException в случае ошибки ввода-вывода.
+     * @throws ParseException 
      */
-    private Collection<Country> read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+    private Collection<Country> read(File file) throws IOException, ParseException {
+        
+    	if(file != null) {
+    		
+    		Collection<Country> colCountry = new ArrayList<Country>();
+    		
+    		try(BufferedReader bufReader = new BufferedReader(new FileReader(file))){
+    			
+    			String temp = null;
+    			
+    			while((temp = bufReader.readLine()) != null) {
+    				colCountry.add(Country.valueOf(temp));
+    			}
+    		}
+    		return colCountry;
+    	}	else {
+    		throw new NullPointerException("File_name is miss");
+    	}
     }
 }

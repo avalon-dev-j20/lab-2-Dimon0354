@@ -2,8 +2,7 @@ package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Задание №2
@@ -54,7 +53,27 @@ public class Task2 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        if(file != null) {
+        	try(InputStream iS = new FileInputStream(file);
+        			Reader fileReader = new InputStreamReader(iS)){
+        		
+        		int temp = 0;
+        		char[] bufferArray = new char[100];
+        		StringBuilder strBuild = new StringBuilder();
+        		
+        		while((temp = fileReader.read(bufferArray)) != -1) {
+        			
+        			strBuild.append(bufferArray, 0, temp);
+        			
+        		}
+        		
+        		String strRes = new String(strBuild);
+        		return strRes;
+        		
+        	}
+        }	else {
+        	throw new NullPointerException("Nothing to read");
+        }
     }
 
     /**
@@ -66,6 +85,12 @@ public class Task2 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private void write(File file, String text) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+    	
+        if(file == null) throw new NullPointerException("File_name is miss");
+        if(text == null) throw new IllegalArgumentException("No text");
+        
+        try(Writer fileWriter = new FileWriter(file)){
+        	fileWriter.write(text);
+        }
     }
 }

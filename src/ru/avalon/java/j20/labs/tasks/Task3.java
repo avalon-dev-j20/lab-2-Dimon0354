@@ -2,9 +2,19 @@ package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Задание №3
@@ -52,7 +62,26 @@ public class Task3 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private Collection<String> read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+    	
+        if(file != null) {
+        	
+        	try(BufferedReader fileBufReader = new BufferedReader(new FileReader(file))){
+        		
+        		List<String> list = new LinkedList<>();
+        		String temp = null;
+        		
+        		while((temp = fileBufReader.readLine()) != null) {
+        			
+        			list.add(temp);
+        			
+        		}
+
+        		return list;
+        		
+        	}
+        }	else {
+        	throw new FileNotFoundException("Nothing to read");
+        }
     }
 
     /**
@@ -65,7 +94,18 @@ public class Task3 implements Task {
      * @param collection коллекция строк
      * @throws IOException в случае ошибок ввода-вывода.
      */
-    private void write(File file, Collection<String> collection) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+    private void write(File file, Collection<String> listCol) throws IOException {
+    	
+        if(file == null) throw new NullPointerException("File_name is miss");
+        if(listCol == null) throw new IllegalArgumentException("No list");
+        
+        try(Writer fileWriter = new PrintWriter(new FileWriter(file))){
+
+        	for (String string : listCol) {
+        		
+				fileWriter.write(string);
+				fileWriter.write(System.lineSeparator());
+			}
+        }   
     }
 }
