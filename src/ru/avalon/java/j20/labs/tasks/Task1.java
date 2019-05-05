@@ -57,15 +57,16 @@ public class Task1 implements Task {
         	try(InputStream iS = new FileInputStream(file); // try{} with resources.
         			ByteArrayOutputStream bAOS = new ByteArrayOutputStream()){
         		
+        		byte[] byteArr = new byte[32];
         		int temp = 0;
-        		while((temp = iS.read()) != - 1) {
+        		while((temp = iS.read(byteArr)) != - 1) {
         			bAOS.write(iS.read());
         		}
         		return bAOS.toString();
         	}
         	
         }	else {
-        	throw new FileNotFoundException("Nothing to read");
+        	throw new NullPointerException("Nothing to read");
         }
     }
 
@@ -79,7 +80,6 @@ public class Task1 implements Task {
      */
     private void write(File file, String text) throws IOException {
     	
-//        throw new UnsupportedOperationException("Not implemented yet!");
     	if(file == null) throw new NullPointerException("Can't write to file, it doesn't exist");
     	if(text == null) throw new NullPointerException("It's nothing to write");
     	

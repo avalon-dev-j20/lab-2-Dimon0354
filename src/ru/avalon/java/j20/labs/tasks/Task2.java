@@ -54,12 +54,16 @@ public class Task2 implements Task {
      */
     private String read(File file) throws IOException {
         if(file != null) {
-        	try(Reader fileReader = new FileReader(file)){
-        		int temp = 0;
+        	try(InputStream iS = new FileInputStream(file);
+        			Reader fileReader = new InputStreamReader(iS)){
         		
+        		int temp = 0;
+        		char[] bufferArray = new char[10];
         		StringBuilder strBuild = new StringBuilder();
-        		while((temp = fileReader.read()) > -1) {
-        			strBuild.append(temp);
+        		
+        		while((temp = fileReader.read(bufferArray)) != -1) {
+        			
+        			strBuild.append(bufferArray, 0, temp);
         			
         		}
         		
@@ -68,7 +72,7 @@ public class Task2 implements Task {
         		
         	}
         }	else {
-        	throw new FileNotFoundException("Nothing to read");
+        	throw new NullPointerException("Nothing to read");
         }
     }
 

@@ -5,7 +5,7 @@ import ru.avalon.java.j20.labs.Task;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
+import static java.lang.Thread.*;
 /**
  * Задание №4
  *
@@ -40,20 +40,12 @@ public class Task4 implements Task {
      * @throws IllegalAccessException 
      */
     private Properties read(String path) throws IOException, IllegalAccessException {
-    	
-        if( path != null || path != "") {
+    	//Просто убрал проверку
+    	ClassLoader loader = currentThread().getContextClassLoader();
+        Properties pr = new Properties();
         	
-        	Properties pr = new Properties();
-        	
-        	try(InputStream inStr = getClass().getClassLoader().getResourceAsStream(path)){
-        		pr.load(inStr);
-        		return pr;
-        		
-        	} 
-        }	else {
-        	
-    		throw new IllegalAccessException("Path is't correct");
-    		
-    	}
+        try(InputStream inStr = loader.getSystemResourceAsStream("resources/database.properties")){
+        	pr.load(inStr);
+        } return pr;	
     }
 }

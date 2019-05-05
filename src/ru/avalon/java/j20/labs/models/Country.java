@@ -64,7 +64,7 @@ public class Country {
     	
     	if (text==null) throw new NullPointerException();
         int indexOfElemnts = text.indexOf(":");
-        if (indexOfElemnts == -1) throw new IllegalArgumentException("Incorrect text");
+        if (indexOfElemnts == -1) throw new ParseException("Incorrect text", 0);
         String key = text.substring(0, indexOfElemnts);
         String valString = text.substring(indexOfElemnts+1);
         return new Country(key, valString);
