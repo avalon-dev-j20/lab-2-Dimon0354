@@ -59,8 +59,8 @@ public class Task1 implements Task {
         		
         		byte[] byteArr = new byte[1];//лучше поставить "1" тогда не пропускает текст.
         		int temp = 0;
-        		while((temp = iS.read(byteArr)) != - 1) {
-        			bAOS.write(iS.read());
+        		while((temp = iS.read(byteArr)) > 0) {
+        			bAOS.write(byteArr, 0, temp);
         		}
         		return bAOS.toString();
         	}
